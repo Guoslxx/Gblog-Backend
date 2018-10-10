@@ -8,10 +8,10 @@ const menuData = [
 ]
 
 const MenuMap = () => (
-    <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
+    <Menu theme="light" mode="inline" defaultSelectedKeys={[window.location.pathname]}>
         {
             menuData.map((menu, index) => (
-                <Menu.Item key={index}>
+                <Menu.Item key={menu.path}>
                     <Link to={menu.path}>
                         <Icon type={menu.icon} />
                         <span>{menu.name}</span>
