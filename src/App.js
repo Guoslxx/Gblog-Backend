@@ -11,13 +11,11 @@ import './common.less';
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <div>
-        <Switch>
-          <Route path="/auth" component={UnauthorizedLayout} />
-          <AuthorizedRoute path="/" exact component={BaseLayout} />
-          <Redirect to="/auth" />
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/auth" component={UnauthorizedLayout} />
+        <AuthorizedRoute path="/" exact component={BaseLayout} />
+        <Redirect to="/auth" />
+      </Switch>
     </BrowserRouter>
   </Provider>
 )

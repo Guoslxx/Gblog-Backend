@@ -2,14 +2,14 @@ import React from 'react';
 import { Button } from 'antd';
 import { connect } from 'react-redux';
 //test code
-import store from '../../store';
+import { requestLogin } from '../../store/action/loggedUserAction'
 
 class Login extends React.PureComponent {
 
     componentDidMount() {
         const { logged, history } = this.props;
-        console.log('loginPage', logged)
-        if(logged){
+        console.log('loginPage', this.props)
+        if (logged) {
             history.push('/');
         }
     }
@@ -17,7 +17,7 @@ class Login extends React.PureComponent {
     login() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                const res = store.dispatch({
+                const res = this.props.dispatch({
                     type: 'SET_LOGGED_USER',
                     logged: true
                 })
@@ -25,15 +25,25 @@ class Login extends React.PureComponent {
             }, 500);
         })
     }
-
-    loginClick() {
+    loggedFunc() {
+        const self = this;
         const { history } = this.props;
-        this.login()
-            .then(res => {
-                console.log('login result', res);
-                console.log(this.props)
-                history.push('/')
-            })
+        return function (dispatch) {
+            return self.login()
+                .then(res => {
+                    console.log('login result', res);
+                    history.push('/')
+                })
+        }
+    }
+    loginClick() {
+        // this.login()
+        //     .then(res => {
+        //         console.log('login result', res);
+        //         console.log(this.props)
+        //         history.push('/')
+        //     })
+        this.props.dispatch(this.loggedFunc())
     }
 
     render() {
@@ -50,4 +60,6 @@ class Login extends React.PureComponent {
     }
 }
 
-export default connect(({ loggedUser }) => ({ logged: loggedUser.logged, padding: loggedUser.padding }))(Login);
+const mapStateToProps = ({ loggedUser }) => ({ logged: loggedUser.logged, padding: loggedUser.padding })
+const mapDispatchToprops = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToprops)(Login);

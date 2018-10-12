@@ -5,7 +5,7 @@ class Dashboard extends React.PureComponent{
     render(){
         return (
             <PageLayout>
-                <h1>控制面板</h1>
+                <h1>控制面板213dsfsd</h1>
             </PageLayout>
         )
     }

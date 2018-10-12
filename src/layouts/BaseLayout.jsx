@@ -53,7 +53,7 @@ export default class BaseLayout extends React.Component {
           <Layout>
             <Header style={{ background: '#fff', padding: 0 }}>
               <div className="header">
-                <Button onClick={this.toggle} shape="circle" icon={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} style={{ marginLeft: '10px' }} />
+                <Button onClick={()=>{this.toggle()}} shape="circle" icon={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} style={{ marginLeft: '10px' }} />
                 <Button onClick={() => { this.logoutClick() }} type='primary' style={{ marginLeft: '110px' }}>登出</Button>
               </div>
             </Header>
