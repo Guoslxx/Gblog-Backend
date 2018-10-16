@@ -17,6 +17,11 @@ export function requestLogin(payload) {
         return mockLogin()
             .then(res => {
                 console.log('登录请求结果:',res);
+                dispatch({
+                    type:'SET_LOGGED_USER',
+                    logged:res.success
+                })
+                console.log(window.localStorage.setItem('login',res.success + ''))
             })
     }
 }
