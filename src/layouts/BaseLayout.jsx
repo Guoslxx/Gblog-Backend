@@ -55,6 +55,7 @@ export default class BaseLayout extends React.Component {
               <div className="header">
                 <Button onClick={()=>{this.toggle()}} shape="circle" icon={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} style={{ marginLeft: '10px' }} />
                 <Button onClick={() => { this.logoutClick() }} type='primary' style={{ marginLeft: '110px' }}>登出</Button>
+                <Button onClick={() => { this.props.history.go(-1)}} type='primary' style={{ marginLeft: '110px' }}>后退</Button>
               </div>
             </Header>
             <Content style={{ margin: '24px 16px', minHeight: 280 }}>

@@ -17,12 +17,13 @@ class AuthorizedRoute extends React.Component {
   }
   render() {
     const { component: Component, pending, logged, ...rest } = this.props
-    console.log(logged, pending)
+    //console.log(logged, pending)
     return (
       <Route {...rest}
         render={props => {
-          if (pending) return <div>Loading...</div>
-          return logged
+          //if (pending) return <div>Loading...</div>
+          return <Component {...props} />
+          return true
             ? <Component {...props} />
             : <Redirect to="/auth/login" />
         }} />

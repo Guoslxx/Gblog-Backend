@@ -1,6 +1,6 @@
 const initialState = {
     pending: true,
-    logged: false
+    logged: window.localStorage.getItem('login') || false
   }
   
   const loggedUser = (state = initialState, action) => {

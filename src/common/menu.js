@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import { Menu, Icon } from 'antd';
 
 const menuData = [
-    { name: '控制台', path: '/dashboard', icon: 'user' },
-    { name: '文章管理', path: '/article', icon: 'bar-chart' },
+    { name: '控制台', path: '/app/index', icon: 'user' },
+    { name: '文章管理', path: '/app/article', icon: 'bar-chart' },
+    { name: 'test', path: '/app/test', icon: 'bar-chart' },
 ]
 
 const MenuMap = () => (
     <Menu theme="light" mode="inline" defaultSelectedKeys={[window.location.pathname]}>
         {
             menuData.map((menu, index) => (
-                <Menu.Item key={menu.path}>
+                <Menu.Item key={menu.name}>
                     <Link to={menu.path}>
                         <Icon type={menu.icon} />
                         <span>{menu.name}</span>
