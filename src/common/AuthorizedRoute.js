@@ -6,7 +6,6 @@ class AuthorizedRoute extends React.Component {
 
   componentWillMount() {
     this.getLoggedUser()
-    console.log('auth', this.props)
   }
   getLoggedUser = () => {
     setTimeout(() => {
