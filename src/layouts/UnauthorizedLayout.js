@@ -16,7 +16,7 @@ const UnauthorizedLayout = (props) => {
       
       */}
       <Switch>
-        <Route path="/auth/login" component={Login} />
+        <Route exact path="/auth/login" component={Login} />
         <Redirect to="/auth/login" />
       </Switch>
     </div>

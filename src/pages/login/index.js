@@ -1,50 +1,31 @@
 import React from 'react';
 import { Button } from 'antd';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 //test code
 import { requestLogin } from '../../store/action/loggedUserAction'
 
 class Login extends React.Component {
 
     loginClick() {
-        // this.login()
-        //     .then(res => {
-        //         console.log('login result', res);
-        //         console.log(this.props)
-        //         history.push('/')
-        //     })
+        const { history } = this.props;
         this.props.dispatch(requestLogin())
-        
-    }
-
-    checkLogin(){
-        const { history,logged } = this.props;
-        console.log('checkLogin', logged);
-        const localLogged = window.localStorage.getItem('login');
-        console.log(localLogged)
-        if (logged) {
-            //history.push('/app');
-        }
-    }
-    
-    componentDidMount(){
-        this.checkLogin();
-    }
-
-    componentDidUpdate (){
-        this.checkLogin();
+        .then(res => {
+            history.push('/app')
+        })
     }
 
     render() {
-        console.log('login',this.props)
+        const {logged} = this.props;
+        if(logged){
+            return (<Redirect to='/app'/>);
+        }
         return (
             <div>
                 <div style={{ width: '60%', margin: '0 auto', padding: '45px' }}>
                     <h1 style={{ textAlign: 'center' }}>登录页面</h1>
                     <p>
                         <Button type='primary' onClick={() => { this.loginClick() }}>登录</Button>
-                        <Button type='primary' onClick={() => { this.props.history.push('/test') }}>到test</Button>
-                        <Button type='primary' onClick={() => { this.props.history.push('/app') }}>到app</Button>
                     </p>
                 </div>
             </div>
