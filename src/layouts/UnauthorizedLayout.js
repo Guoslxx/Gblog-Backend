@@ -2,8 +2,7 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 // Pages
-import Login from '../pages/login';
-
+import Login from '../pages/Login';
 const UnauthorizedLayout = (props) => {
   return (
     <div className="unauthorized-layout">

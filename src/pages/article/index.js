@@ -1,13 +1,6 @@
 import React from 'react';
-import { Card, Row, Col, Button, Table, Popconfirm, Tag } from 'antd';
-
-const title = (
-    <Row>
-        <Col>
-            <Button>新建文章</Button>
-        </Col>
-    </Row>
-);
+import { Row, Col, Table, Popconfirm, Tag } from 'antd';
+import Pagelayout from '@layouts/PageLayout';
 
 class Article extends React.PureComponent {
 
@@ -50,10 +43,7 @@ class Article extends React.PureComponent {
 
     render() {
         return (
-            <Card
-                bordered={false}
-                title={title}
-            >
+            <Pagelayout>
                 <Row>
                     <Col>
                         <Table
@@ -63,7 +53,7 @@ class Article extends React.PureComponent {
                         />
                     </Col>
                 </Row>
-            </Card>
+            </Pagelayout>
         )
     }
 }

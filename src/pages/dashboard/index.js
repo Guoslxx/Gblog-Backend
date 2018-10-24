@@ -5,8 +5,7 @@ class Dashboard extends React.PureComponent{
     render(){
         return (
             <PageLayout>
-                <h1>控制面板213dsfsd</h1>
-                <button onClick={e=>{this.props.history.push('/test')}}>test</button>
+                <h1>控制面板</h1>
             </PageLayout>
         )
     }

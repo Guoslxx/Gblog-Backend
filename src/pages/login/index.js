@@ -5,20 +5,23 @@ import { Redirect } from 'react-router-dom';
 //test code
 import { requestLogin } from '../../store/action/loggedUserAction'
 
+import config from '../../utils/config.js';
+const { pathPrefix } = config;
+
 class Login extends React.Component {
 
     loginClick() {
         const { history } = this.props;
         this.props.dispatch(requestLogin())
         .then(res => {
-            history.push('/app')
+            history.push(pathPrefix)
         })
     }
 
     render() {
         const {logged} = this.props;
         if(logged){
-            return (<Redirect to='/app'/>);
+            return (<Redirect to={pathPrefix}/>);
         }
         return (
             <div>

@@ -1,32 +1,61 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Icon } from 'antd';
 import { connect } from 'react-redux';
+import { Menu, Icon } from 'antd';
 
-const menuData = [
-    { name: '控制台', path: '/app/index', icon: 'user' },
-    { name: '文章管理', path: '/app/article', icon: 'bar-chart' },
-    { name: 'test', path: '/app/test', icon: 'bar-chart' },
-]
+import config from '../utils/config.js';
+
+const { pathPrefix } = config;
+const { SubMenu } = Menu;
+
 @connect(state => state)
 class MenuMap extends React.PureComponent {
+
     render() {
-        console.log(this.props,'menu!!!!!!!!!!!!!')
+        const {config} = this.props;
+        const openKeys = config.filter(e => e.isOpen || false).map(e => e.title)
         return (
-            <Menu theme="light" mode="inline" defaultSelectedKeys={[window.location.pathname]}>
+            <Menu theme="light" mode="inline" defaultSelectedKeys={[window.location.pathtitle]} openKeys={openKeys}>
                 {
-                    menuData.map((menu, index) => (
-                        <Menu.Item key={menu.name}>
-                            <Link to={menu.path}>
-                                <Icon type={menu.icon} />
-                                <span>{menu.name}</span>
-                            </Link>
-                        </Menu.Item>
-                    ))
+                    config.map((menu) => {
+                        const path = `${pathPrefix}${menu.path}`
+                        if (!menu.children) {
+                            return (
+                                <Menu.Item key={menu.title}>
+                                    <Link to={path}>
+                                        <Icon type={menu.icon} />
+                                        <span>{menu.title}</span>
+                                    </Link>
+                                </Menu.Item>
+                            )
+                        } else {
+                            return getSubMenu(menu);
+                        }
+                    })
                 }
             </Menu>
         )
     }
+}
+
+const getSubMenu = (menu) => {
+    return (
+        <SubMenu key={menu.title} title={<span><Icon type="appstore" /><span>{menu.title}</span></span>}>
+            {
+                menu.children.map(subMenu => {
+                    const path = `${pathPrefix}`
+                    return (
+                        <Menu.Item key={subMenu.title}>
+                            <Link to={path + subMenu.path}>
+                                {subMenu.icon && <Icon type={subMenu.icon} />}
+                                <span>{subMenu.title}</span>
+                            </Link>
+                        </Menu.Item>
+                    )
+                })
+            }
+        </SubMenu>
+    )
 }
 
 export default MenuMap;
