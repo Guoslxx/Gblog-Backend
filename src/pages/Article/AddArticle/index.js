@@ -72,17 +72,10 @@ class AddForm extends React.Component {
                                     )
                                 }
                             </FormItem>
-                            <FormItem {...this.formItemLayout} label='测试'>
-                                {
-                                    getFieldDecorator('test')(
-                                        <Editor style={{height:'300px'}}/>
-                                    )
-                                }
-                            </FormItem>
                             <FormItem {...this.formItemLayout} label='文章内容'>
                                 {
                                     getFieldDecorator('contents')(
-                                        <Input />
+                                        <Editor style={{height:'600px'}}/>
                                     )
                                 }
                             </FormItem>

@@ -49,14 +49,13 @@ export default class BaseLayout extends React.Component {
             <span className={!this.state.collapsed ? 'indent' : null}>-Admin</span>
 
             </div>
-            <MenuMap  config={routerConfig}/>
+            <MenuMap collapsed={this.state.collapsed}  config={routerConfig}/>
           </Sider>
           <Layout>
             <Header style={{ background: '#fff', padding: 0 }}>
               <div className="header">
                 <Button onClick={()=>{this.toggle()}} shape="circle" icon={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} style={{ marginLeft: '10px' }} />
                 <Button onClick={() => { this.logoutClick() }} type='primary' style={{ marginLeft: '110px' }}>登出</Button>
-                <Button onClick={() => { this.props.history.go(-1)}} type='primary' style={{ marginLeft: '110px' }}>后退</Button>
               </div>
             </Header>
             <Content style={{ margin: '24px 16px', minHeight: 280 }}>

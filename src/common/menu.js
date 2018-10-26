@@ -12,10 +12,15 @@ const { SubMenu } = Menu;
 class MenuMap extends React.PureComponent {
 
     render() {
-        const {config} = this.props;
+        const { config, collapsed } = this.props;
         const openKeys = config.filter(e => e.isOpen || false).map(e => e.title)
         return (
-            <Menu theme="light" mode="inline" defaultSelectedKeys={[window.location.pathtitle]} openKeys={openKeys}>
+            <Menu theme="light"
+                mode="inline"
+                defaultOpenKeys={openKeys}
+                defaultSelectedKeys={[window.location.pathname]}
+                inlineCollapsed={collapsed}
+            >
                 {
                     config.map((menu) => {
                         const path = `${pathPrefix}${menu.path}`
