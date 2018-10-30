@@ -4,6 +4,10 @@ import Pagelayout from '@layouts/PageLayout';
 
 class Article extends React.PureComponent {
 
+    handleRowEdit(id){
+        this.props.history.push(`/admin/article/edit/${id}`);
+    }
+
     column = [
         { title: 'ID', dataIndex: 'id', key: 'id' },
         { title: '标题', dataIndex: 'title', key: 'title' },
@@ -20,7 +24,7 @@ class Article extends React.PureComponent {
             width: '120px',
             render: (_, record) => (
                 <div>
-                    <a href="javascript:;" style={{marginRight:'8px'}}>编辑</a>
+                    <a href="javascript:;" style={{marginRight:'8px'}} onClick={e => {this.handleRowEdit(record.id)}}>编辑</a>
                     <Popconfirm 
                         title="你确定要删除此文章吗?"
                         okText="确定"

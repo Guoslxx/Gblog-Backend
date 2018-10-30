@@ -11,10 +11,18 @@ const routerConfig = [
             },
             {
                 title: '发布文章',
-                path: '/article/add-article',
+                path: '/article/:status',
                 icon:'form',
-                component:'AddArticle'
-            }
+                component:'ArticleForm',
+                params:{status:'add'}
+            },
+            {
+                title: '编辑文章',
+                path: '/article/:status/:id',
+                icon:'form',
+                component:'ArticleForm',
+                isHide:true,
+            },
         ]
     },
 ]

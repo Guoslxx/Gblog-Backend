@@ -22,12 +22,12 @@ export default class Editor extends React.Component {
         ],
     }
 
-    formats = [
-        'header',
-        'bold', 'italic', 'underline', 'strike', 'blockquote',
-        'list', 'bullet', 'indent',
-        'link', 'image'
-    ]
+    // formats = [
+    //     'header',
+    //     'bold', 'italic', 'underline', 'strike', 'blockquote',
+    //     'list', 'bullet', 'indent',
+    //     'link', 'image'
+    // ]
 
     handleChange(value) {
         const { onChange } = this.props;
@@ -42,7 +42,7 @@ export default class Editor extends React.Component {
                     defaultValue={this.state.defaultValue}
                     style={{ height: '100%' }}
                     modules={this.modules}
-                    formats={this.formats}
+                    // formats={this.formats}
                 />
             </div>
         )

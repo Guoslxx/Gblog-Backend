@@ -1,11 +1,11 @@
 import Login from './Login';
 import Dashboard from './Dashboard';
 import Article from './Article';
-import AddArticle from './Article/AddArticle';
+import ArticleForm from './Article/ArticleForm';
 
 export default {
     Article,
-    AddArticle,
+    ArticleForm,
     Login,
     Dashboard
 }

@@ -8,6 +8,7 @@ const { createFormField } = Form;
 
 class AddArticle extends React.PureComponent {
     render() {
+        console.log(this.props,'form article')
         return (
             <Pagelayout>
                 <AddForm model={{ test: '测试数据', title: '测试标题' }} />
@@ -18,7 +19,7 @@ class AddArticle extends React.PureComponent {
 
 @Form.create({
     mapPropsToFields(props) {
-        console.log('form map', props);
+        //console.log('form map', props);
         const { model } = props;
         return {
             test: createFormField({ value: model.test || '' }),
