@@ -1,0 +1,43 @@
+:global {
+    .ant-upload.ant-upload-drag.ant-upload-disabled {
+        cursor: pointer;
+    }
+    .ant-modal-body img {
+        width: 100%;
+        padding: 12px;
+    }
+    .upload-preview__wrapper {
+        position: relative;
+        img {
+            width: 100%;
+        }
+        .upload-preview__mask {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, .5);
+            transition: all .3s;
+            opacity: 0;
+        }
+        .upload-preview__mask {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        &:hover .upload-preview__mask {
+            opacity: 1;
+        }
+        .upload-preview__action {
+            font-size: 24px;
+            color: rgba(255, 255, 255, .7);
+            i.anticon {
+                margin: 0 8px;
+                &:hover {
+                    color: rgba(255, 255, 255, 1);
+                }
+            }
+        }
+    }
+}

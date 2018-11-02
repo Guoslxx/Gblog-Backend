@@ -25,7 +25,6 @@ class MenuMap extends React.PureComponent {
                     config.map((menu) => {
                         let path = `${pathPrefix}${menu.path}`;
                         path = compilePath(path, menu.params);
-                        console.log('complie', path)
                         if (menu.isHide) return null;
                         if (!menu.children) {
                             return (
@@ -54,9 +53,7 @@ const getSubMenu = (menu) => {
                     if (subMenu.isHide) return null;
 
                     let path = `${pathPrefix}` + subMenu.path;
-                    console.log(path)
                     path = compilePath(path, subMenu.params);
-                    console.log('complie', path)
                     return (
                         <Menu.Item key={subMenu.title}>
                             <Link to={path}>
