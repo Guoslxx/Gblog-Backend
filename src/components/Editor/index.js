@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill,  { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './style.less';
 export default class Editor extends React.Component {
@@ -9,6 +9,7 @@ export default class Editor extends React.Component {
         this.state = {
             defaultValue: props.value
         }
+        this.quill = React.createRef();
     }
 
     modules = {
@@ -31,18 +32,25 @@ export default class Editor extends React.Component {
 
     handleChange(value) {
         const { onChange } = this.props;
-        onChange && onChange(value);
+        const outputValue = {
+            html: value,
+            markdowns: value,
+            text: value,
+        }
+        console.log(Quill)
+        onChange && onChange(outputValue);
     }
 
     render() {
         return (
             <div style={this.props.style || null} className={'g-editor'}>
-                <ReactQuill 
-                onChange={e => { this.handleChange(e) }}
+                <ReactQuill
+                    ref={this.quill}
+                    onChange={e => { this.handleChange(e) }}
                     defaultValue={this.state.defaultValue}
                     style={{ height: '100%' }}
                     modules={this.modules}
-                    // formats={this.formats}
+                // formats={this.formats}
                 />
             </div>
         )

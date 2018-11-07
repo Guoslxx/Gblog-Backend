@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Tag } from 'antd';
+import './style.less';
+import { Tag,Icon } from 'antd';
 const { CheckableTag } = Tag;
 /**
      * dataSource结构
@@ -48,6 +49,7 @@ export default class GTags extends React.PureComponent {
         const { checkList } = this.state;
         const { onChange } = this.props;
         let _checkList = [...checkList];
+        //判断当前选项是否被选中
         if (isChecked) {
             _checkList = checkList.filter(e => e.id !== curVal.id);
         } else {
@@ -62,7 +64,7 @@ export default class GTags extends React.PureComponent {
     render() {
         const { dataSource, checkList } = this.state;
         return (
-            <div>
+            <div className='g-tags-wrapper'>
                 {
                     dataSource.map(item => {
                         //以是否能在checkList中找到，来判断当前Tag是否checked.
@@ -72,7 +74,10 @@ export default class GTags extends React.PureComponent {
                                 onChange={e => { this.handleTagSelect({ id: item.id, label: item.label }, _isChecked) }}
                                 title={'描述'}
                                 checked={_isChecked}
-                                key={item.id}>
+                                key={item.id}
+                                color='red'
+                                >
+                                <Icon type={_isChecked?'check':'plus'} theme="outlined" style={{marginRight:'4px'}}/>
                                 {item.label}
                             </CheckableTag>)
                     })

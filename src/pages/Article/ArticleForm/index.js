@@ -58,12 +58,19 @@ class AddForm extends React.Component {
         },
     }
 
+    handleSubmitFields(fileds) {
+        //const { isAdd } = this.state;
+        const { contents,...restFileds} = fileds;
+        let _fileds = { ...fileds };
+
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         this.props.form.validateFields((values, err) => {
             console.log('validate', values, err);
             if (!err) {
-                this.props.dispatch()
+                this.handleSubmitFields(values);
             }
         })
     }
