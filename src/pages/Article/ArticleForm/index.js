@@ -6,6 +6,8 @@ import Editor from '../../../components/Editor';
 import GUpload from '../../../components/GUpload';
 import GTags from '../../../components/GTags';
 import './style.less';
+import { submitArticle } from '@api/article';
+// console.log(submitAritcle)
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const { createFormField } = Form;
@@ -60,15 +62,17 @@ class AddForm extends React.Component {
 
     handleSubmitFields(fileds) {
         //const { isAdd } = this.state;
-        const { contents,...restFileds} = fileds;
+        const { contents, ...restFileds } = fileds;
         let _fileds = { ...fileds };
 
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.form.validateFields((values, err) => {
+        this.props.form.validateFields(async (values, err) => {
             console.log('validate', values, err);
+            const result = await submitArticle(values);
+            console.log('submit',result);
             if (!err) {
                 this.handleSubmitFields(values);
             }

@@ -1,15 +1,13 @@
 import request from '../utils/axios';
 
-export async function getAritcleList(payload){
-    return request({
-        url:'/aritcle',
-        method:'GET',
-    })
+export async function getArticleList(payload){
+    return request.get(`/aritcle`);
 }
 
-export async function getAritcleById(payload){
-    return request({
-        url:`/aritcle?id=${payload.id}`,
-        method:'GET',
-    })
+export async function getArticleById(payload){
+    return request.get(`/aritcle/${payload.id}`)
+}
+
+export async function submitArticle(payload){
+    return request.post('/article',payload);
 }
