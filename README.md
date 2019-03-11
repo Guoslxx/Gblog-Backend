@@ -1,7 +1,7 @@
 # Personal Management Center
 此项目是使用React技术栈的开发的SPA Admin。
 
-用于(暂时想到的)
+用途(暂时想到的)
 - 了解React技术栈
 - 收藏的网络信息整理
 - 整合一些有趣的demo代码
