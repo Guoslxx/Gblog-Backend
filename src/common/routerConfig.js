@@ -1,7 +1,7 @@
 const routerConfig = [
-    { title: 'Welcome', path: `/dashboard`, icon: 'dashboard',component:'Dashboard' },
+    { title: 'Welcome', path: `/welcome`, icon: 'home',component:'Welcome' },
     {
-        title: '文章管理', path: `/article`, icon: 'bar-chart',
+        title: '博客管理', path: `/article`, icon: 'bar-chart',
         children: [
             {
                 title: '所有文章',

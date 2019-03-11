@@ -1,11 +1,8 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect,withRouter } from 'react-router-dom';
 // Page
 import AllPages from '../pages';
-
-import config from '../utils/config.js';
-const { pathPrefix } = config;
-
+@withRouter
 class RouterMap extends React.Component {
 
     getRouteData = (data) => {
@@ -27,20 +24,20 @@ class RouterMap extends React.Component {
 
     render() {
         const routeList = this.getRouteData(this.props.config)
+        console.log(this.props,this.state)
         return (
             <Switch>
-                <Redirect from={pathPrefix} to={`${pathPrefix}/dashboard`} exact />
                 {
                     routeList.map(item => {
                         if (!item.component) return null;
-
-                        const path = pathPrefix + item.path;
+                        const path = item.path;
                         const Component = AllPages[item.component];
                         return (
                             <Route key={path} path={path} component={Component} exact={item.isExact || true} />
                         )
                     })
                 }
+                <Redirect exact from={`/`} to={`/welcome`} />
                 <Route render={() => (<h1>404</h1>)}></Route>
             </Switch>
         );

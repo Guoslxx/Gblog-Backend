@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import { Menu, Icon } from 'antd';
 import pathToRegexp from 'path-to-regexp'
 
-import config from '../utils/config.js';
-
-const { pathPrefix } = config;
 const { SubMenu } = Menu;
+
 window.pathToRegexp = pathToRegexp;
 @connect(state => state)
 class MenuMap extends React.PureComponent {
@@ -15,7 +13,7 @@ class MenuMap extends React.PureComponent {
         const { config, collapsed } = this.props;
         const openKeys = config.filter(e => e.isOpen || false).map(e => e.title)
         return (
-            <Menu theme="light"
+            <Menu theme="dark"
                 mode="inline"
                 defaultOpenKeys={openKeys}
                 defaultSelectedKeys={[window.location.pathname]}
@@ -23,7 +21,7 @@ class MenuMap extends React.PureComponent {
             >
                 {
                     config.map((menu) => {
-                        let path = `${pathPrefix}${menu.path}`;
+                        let path = `${menu.path}`;
                         path = compilePath(path, menu.params);
                         if (menu.isHide) return null;
                         if (!menu.children) {
@@ -52,7 +50,7 @@ const getSubMenu = (menu) => {
                 menu.children.map(subMenu => {
                     if (subMenu.isHide) return null;
 
-                    let path = `${pathPrefix}` + subMenu.path;
+                    let path = subMenu.path;
                     path = compilePath(path, subMenu.params);
                     return (
                         <Menu.Item key={subMenu.title}>

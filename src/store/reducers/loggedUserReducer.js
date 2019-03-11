@@ -4,7 +4,6 @@ const initialState = {
   }
   
   const loggedUser = (state = initialState, action) => {
-    
     if (action.type === 'GET_LOGGED_USER') {
       return Object.assign({}, state, {
         pending: false

@@ -4,8 +4,8 @@ import store from './store';
 
 import BaseLayout from '@layouts/BaseLayout';
 import UnauthorizedLayout from '@layouts/UnauthorizedLayout';
-import { BrowserRouter, Switch, Redirect, Route,withRouter } from 'react-router-dom';
-import AuthorizedRoute from './common/AuthorizedRoute';
+import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
+import AuthorizedRoute, { Authorized } from './common/AuthorizedRoute';
 import './common.less';
 import config from './utils/config';
 const { pathPrefix } = config;
@@ -22,48 +22,27 @@ const { pathPrefix } = config;
 //   </Provider>
 // )
 @withRouter
-class Login extends PureComponent{
-  constructor(props){
+class Login extends PureComponent {
+  constructor(props) {
     super(props);
-      const _isLogin = window.localStorage.getItem('lg') || false;
-      console.log('login',_isLogin,props);
-      this.state = {
-        isLogin: _isLogin
-      }
+    const _isLogin = window.localStorage.getItem('lg') || false;
+    console.log('login', _isLogin, props);
+    this.state = {
+      isLogin: _isLogin
+    }
   }
-  handleSubmit(){
-    window.localStorage.setItem('lg',true);
+  handleSubmit() {
+    window.localStorage.setItem('lg', true);
     console.log(this.props)
     this.props.history.push('/');
   }
-  render(){
-    return (<button onClick={e => {this.handleSubmit(e)}}>登录</button>)
-  }
-}
-const verify = Comp => {
-  return class realComponent extends PureComponent {
-    constructor(props) {
-      super(props);
-      const _isLogin = window.localStorage.getItem('lg') || false;
-      console.log('verify',_isLogin)
-      this.state = {
-        isLogin: _isLogin
-      }
-    }
-    render() {
-      const { isLogin } = this.state;
-
-      if(isLogin){
-        return <Comp {...this.props}/>
-      }else{
-        return <Redirect to='/login' />
-      }
-    }
+  render() {
+    return (<button onClick={e => { this.handleSubmit(e) }}>登录</button>)
   }
 }
 const successComp = props => (
   <h1>已登录
-    <button onClick={e => {console.log('su',props);window.localStorage.removeItem('lg');props.history.push('/')}}>登出</button>
+    <button onClick={e => { console.log('su', props); window.localStorage.removeItem('lg'); props.history.push('/login') }}>登出</button>
   </h1>
 );
 const App = () => (
@@ -71,7 +50,7 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Route exact path='/login' component={Login} />
-        <Route component={verify(successComp)} />
+        <Route component={Authorized(BaseLayout)} />
       </Switch>
     </BrowserRouter>
   </Provider>

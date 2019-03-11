@@ -42,7 +42,7 @@ export default class BaseLayout extends React.Component {
             trigger={null}
             collapsible
             collapsed={this.state.collapsed}
-            theme="light"
+            theme="dark"
           >
             <div className="logo" >
               GBlog

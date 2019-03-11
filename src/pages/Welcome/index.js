@@ -1,7 +1,7 @@
 import React from 'react';
 import PageLayout from '@layouts/PageLayout';
 
-class Dashboard extends React.PureComponent{
+class Welcome extends React.PureComponent{
     render(){
         return (
             <PageLayout>
@@ -11,4 +11,4 @@ class Dashboard extends React.PureComponent{
     }
 }
 
-export default Dashboard;
+export default Welcome;
