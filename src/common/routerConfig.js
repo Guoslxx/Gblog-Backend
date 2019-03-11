@@ -1,5 +1,5 @@
 const routerConfig = [
-    { title: '控制台', path: `/dashboard`, icon: 'dashboard',component:'Dashboard' },
+    { title: 'Welcome', path: `/dashboard`, icon: 'dashboard',component:'Dashboard' },
     {
         title: '文章管理', path: `/article`, icon: 'bar-chart',
         children: [

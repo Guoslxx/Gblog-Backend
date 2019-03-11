@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Prompt } from 'react-router-dom';
-import { Form, Row, Col, Input, Card, Button, Radio, Checkbox } from 'antd';
+import { Form, Row, Col, Input, Card, Button, Radio } from 'antd';
 import Pagelayout from '@layouts/PageLayout';
 import Editor from '../../../components/Editor';
 import GUpload from '../../../components/GUpload';
@@ -11,7 +11,6 @@ import { submitArticle } from '@api/article';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const { createFormField } = Form;
-const CheckboxGroup = Checkbox.Group;
 
 class AddArticle extends React.PureComponent {
     render() {
@@ -62,8 +61,8 @@ class AddForm extends React.Component {
 
     handleSubmitFields(fileds) {
         //const { isAdd } = this.state;
-        const { contents, ...restFileds } = fileds;
-        let _fileds = { ...fileds };
+        // const { contents, ...restFileds } = fileds;
+        // let _fileds = { ...fileds };
 
     }
 
