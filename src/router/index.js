@@ -1,4 +1,4 @@
-const routerConfig = [
+const routes = [
     { title: 'Welcome', path: `/welcome`, icon: 'home',component:'Welcome' },
     {
         title: '博客管理', path: `/article`, icon: 'bar-chart',
@@ -27,4 +27,4 @@ const routerConfig = [
     },
 ]
 
-export default routerConfig;
+export default routes;

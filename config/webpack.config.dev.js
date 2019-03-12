@@ -11,7 +11,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
-
+let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 const publicPath = '/';
@@ -82,14 +82,14 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     // `web` extension prefixes have been added for better support
     // for React Native Web.
-    extensions: ['*','.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    extensions: ['*', '.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
 
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
-      '@layouts': path.join(__dirname,'../src/layouts'),
-      '@api':path.join(__dirname,'../src/api'),
+      '@layouts': path.join(__dirname, '../src/layouts'),
+      '@api': path.join(__dirname, '../src/api'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -98,6 +98,18 @@ module.exports = {
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'server',
+        analyzerHost: '127.0.0.1',
+        analyzerPort: '9412',
+        reportFilename: 'report.html',
+        defaultSizes: 'parsed',
+        openAnalyzer: true,
+        generateStatsFile: false,
+        statsFilename: 'stats.json',
+        statsOptions: null,
+        logLevel: 'info'
+      })
     ],
   },
   module: {
@@ -202,34 +214,34 @@ module.exports = {
             test: /\.css$/,
             include: /node_modules|antd\.css/,
             use: [
-                require.resolve('style-loader'),
-                {
-                    loader: require.resolve('css-loader'),
-                    options: {
-                        importLoaders: 1,
-                        // 改动
-                        // modules: true,   // 新增对css modules的支持
-                        // localIdentName: '[name]__[local]__[hash:base64:5]', //
-                    },
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                  // 改动
+                  // modules: true,   // 新增对css modules的支持
+                  // localIdentName: '[name]__[local]__[hash:base64:5]', //
                 },
-                {
-                    loader: require.resolve('postcss-loader'),
-                    options: {
-                        ident: 'postcss',
-                        plugins: () => [
-                            require('postcss-flexbugs-fixes'),
-                            autoprefixer({
-                                browsers: [
-                                    '>1%',
-                                    'last 4 versions',
-                                    'Firefox ESR',
-                                    'not ie < 9', // React doesn't support IE8 anyway
-                                ],
-                                flexbox: 'no-2009',
-                            }),
-                        ],
-                    },
+              },
+              {
+                loader: require.resolve('postcss-loader'),
+                options: {
+                  ident: 'postcss',
+                  plugins: () => [
+                    require('postcss-flexbugs-fixes'),
+                    autoprefixer({
+                      browsers: [
+                        '>1%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                      flexbox: 'no-2009',
+                    }),
+                  ],
                 },
+              },
             ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.

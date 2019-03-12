@@ -1,5 +1,5 @@
-import MenuMap from './menu';
-import RouterMap from './router';
+import MenuMap from './MenuMap';
+import RouterMap from './RouterMap';
 
 export {
     MenuMap,

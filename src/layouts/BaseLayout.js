@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { MenuMap, RouterMap } from '../common';
 import './BaseLayout.less';
 import store from '../store';
-import routerConfig from '../common/routerConfig';
+import routes from '../router';
 
 const { Header, Sider, Content } = Layout;
 export default class BaseLayout extends React.Component {
@@ -49,7 +49,7 @@ export default class BaseLayout extends React.Component {
             <span className={!this.state.collapsed ? 'indent' : null}>-Admin</span>
 
             </div>
-            <MenuMap collapsed={this.state.collapsed}  config={routerConfig}/>
+            <MenuMap collapsed={this.state.collapsed}  config={routes}/>
           </Sider>
           <Layout>
             <Header style={{ background: '#fff', padding: 0 }}>
@@ -59,7 +59,7 @@ export default class BaseLayout extends React.Component {
               </div>
             </Header>
             <Content style={{ margin: '24px 16px', minHeight: 280 }}>
-              <RouterMap config={routerConfig}/>
+              <RouterMap routes={routes}/>
             </Content>
           </Layout>
         </Layout>

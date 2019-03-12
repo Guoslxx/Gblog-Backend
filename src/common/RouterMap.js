@@ -1,11 +1,10 @@
-import React from 'react';
+import React,{Suspense} from 'react';
 import { Route, Switch, Redirect,withRouter } from 'react-router-dom';
 // Page
 import AllPages from '../pages';
 @withRouter
 class RouterMap extends React.Component {
-
-    getRouteData = (data) => {
+    getRoutes = (data) => {
         const result = [];
         const mapData = (list) => {
             list.forEach(e => {
@@ -19,12 +18,8 @@ class RouterMap extends React.Component {
         mapData(data);
         return result;
     }
-
-
-
     render() {
-        const routeList = this.getRouteData(this.props.config)
-        console.log(this.props,this.state)
+        const routeList = this.getRoutes(this.props.routes);
         return (
             <Switch>
                 {
