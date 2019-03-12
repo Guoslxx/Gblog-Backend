@@ -30,6 +30,11 @@ const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const config = require('../config/webpack.config.dev');
 const createDevServerConfig = require('../config/webpackDevServer.config');
+// console.log('process',process.argv)
+// if (process.argv.includes('--analyzer')) {
+//   //如果有analyzer参数，则分析bundle文件
+//   config.plugins.push(new BundleAnalyzerPlugin());
+// }
 
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
