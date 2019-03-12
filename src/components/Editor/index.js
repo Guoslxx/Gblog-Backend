@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactQuill,  { Quill } from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './style.less';
 export default class Editor extends React.Component {
@@ -10,6 +10,13 @@ export default class Editor extends React.Component {
             defaultValue: props.value
         }
         this.quill = React.createRef();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.value !== nextProps.value){
+            //console.log('receive',this.props.value,'--------',nextProps.value,this.quill);
+            this.quill.current.setEditorContents(this.quill.current.editor, nextProps.value);
+        }
     }
 
     modules = {
@@ -23,13 +30,6 @@ export default class Editor extends React.Component {
         ],
     }
 
-    // formats = [
-    //     'header',
-    //     'bold', 'italic', 'underline', 'strike', 'blockquote',
-    //     'list', 'bullet', 'indent',
-    //     'link', 'image'
-    // ]
-
     handleChange(value) {
         const { onChange } = this.props;
         const outputValue = {
@@ -37,19 +37,20 @@ export default class Editor extends React.Component {
             markdowns: value,
             text: value,
         }
-        console.log(Quill)
+        console.log('change',value)
         onChange && onChange(outputValue);
     }
 
     render() {
+        console.log('editor props',this.props.value)
         return (
             <div style={this.props.style || null} className={'g-editor'}>
                 <ReactQuill
                     ref={this.quill}
                     onChange={e => { this.handleChange(e) }}
-                    defaultValue={this.state.defaultValue}
                     style={{ height: '100%' }}
                     modules={this.modules}
+                    value={this.props.value}
                 // formats={this.formats}
                 />
             </div>

@@ -1,28 +1,37 @@
 import axios from 'axios'
-export const baseURL = process.env.NODE_ENV === 'development' ? 'https://www.easy-mock.com/mock/5b0cc4bd6224f3257a8f2422/frontend-api' : 'http://api.guosl.top';
+import { Modal, message } from 'antd'
+import config from './config'
 
-const instance = axios.create({
-    baseURL,
+const http = axios.create({
+    baseURL: config.baseURL,
     timeout: 2000,
 })
-instance.interceptors.request.use(
+http.interceptors.request.use(
     config => {
-        console.log('请求配置',config)
         return config;
     },
     error => {
-        console.log('请求错误',error)
         return Promise.reject(error);
     }
 )
-instance.interceptors.response.use(
+http.interceptors.response.use(
     response => {
-        console.log('响应体',response);
-        return response;
+        const { data } = response;
+        if(data.success){
+            return data.data || true;
+        }else{
+            message.error(`接口请求失败${data.message}`)
+        }
     },
     error => {
-        console.log('响应错误',error);
+        if (process.env.NODE_ENV === 'development') {
+            Modal.error({
+                title: `请求错误`,
+                content: `${error}`,
+                okText: '好的'
+            });
+        }
         return error;
     }
 )
-export default instance;
+export default http;

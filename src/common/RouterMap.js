@@ -1,5 +1,5 @@
-import React,{Suspense} from 'react';
-import { Route, Switch, Redirect,withRouter } from 'react-router-dom';
+import React from 'react';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 // Page
 import AllPages from '../pages';
 @withRouter

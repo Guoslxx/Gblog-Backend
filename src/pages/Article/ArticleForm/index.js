@@ -1,41 +1,61 @@
 import React from 'react';
-// import { Prompt } from 'react-router-dom';
-import { Form, Row, Col, Input, Card, Button, Radio } from 'antd';
+import { withRouter } from 'react-router-dom';
+import { Form, Row, Col, Input, Card, Button, Radio, message } from 'antd';
 import Pagelayout from '@layouts/PageLayout';
 import Editor from '../../../components/Editor';
 import GUpload from '../../../components/GUpload';
 import GTags from '../../../components/GTags';
 import './style.less';
-import { submitArticle } from '@api/article';
+import { submitArticle, getArticleById } from '@api/article';
 // console.log(submitAritcle)
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const { createFormField } = Form;
 
 class AddArticle extends React.PureComponent {
+    state = {
+        formModel: {}
+    }
+
+    async componentDidMount() {
+        const { match: { params } } = this.props;
+        //编辑状态下，根据ID请求文章
+        if (params.status === 'edit') {
+            const result = await getArticleById({ id: params.id });
+            console.log(result);
+            if (result) {
+                this.setState({
+                    formModel: result[0]
+                })
+            } else {
+                message.error('请求失败，请刷新后重试!');
+            }
+        }
+    }
     render() {
         const { match: { params } } = this.props;
+        const { formModel } = this.state;
         return (
             <Pagelayout>
-                <AddForm model={{}} params={params} />
+                <AddForm model={formModel} params={params} />
             </Pagelayout>
         )
     }
 }
-
+@withRouter
 @Form.create({
     mapPropsToFields(props) {
         //console.log('form map', props);
         const { model } = props;
+        console.log('form',model)
         return {
-            test: createFormField({ value: model.test || '' }),
             title: createFormField({ value: model.title || '' }),
             category: createFormField({ value: model.category || '' }),
             contents: createFormField({ value: model.contents || '' }),
             desc: createFormField({ value: model.desc || '' }),
             source: createFormField({ value: model.source || 'original' }),
             status: createFormField({ value: model.status || '' }),
-            tag: createFormField({ value: model.tag || [] }),
+            tags: createFormField({ value: model.tags || [] }),
             cover: createFormField({ value: model.cover || '' }),
         }
     }
@@ -63,17 +83,23 @@ class AddForm extends React.Component {
         //const { isAdd } = this.state;
         // const { contents, ...restFileds } = fileds;
         // let _fileds = { ...fileds };
-
+        return fileds;
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.form.validateFields(async (values, err) => {
-            console.log('validate', values, err);
-            const result = await submitArticle(values);
-            console.log('submit',result);
+        this.props.form.validateFields(async (err, values) => {
             if (!err) {
-                this.handleSubmitFields(values);
+                const fields = this.handleSubmitFields(values);
+                const result = await submitArticle(fields);
+                console.log(result, this.props);
+                if (result) {
+                    message.success(`发布成功`);
+                    setTimeout(() => {
+                        this.props.history.push('/article/all');
+                    }, 1000)
+
+                }
             }
         })
     }
@@ -99,7 +125,7 @@ class AddForm extends React.Component {
                                     getFieldDecorator('title', {
                                         rules: [{ required: true, message: '请输入文章标题' }]
                                     })(
-                                        <Input style={{ width: '50%' }} />
+                                        <Input style={{ width: '50%' }} autoComplete='off' />
                                     )
                                 }
                             </FormItem>
@@ -112,7 +138,7 @@ class AddForm extends React.Component {
                             </FormItem>
                             <FormItem {...this.formItemLayout} label='文章标签'>
                                 {
-                                    getFieldDecorator('tag')(
+                                    getFieldDecorator('tags')(
                                         <GTags />
                                     )
                                 }
@@ -158,13 +184,6 @@ class AddForm extends React.Component {
                                     )
                                 }
                             </FormItem>
-                            {/* <FormItem {...this.formItemLayout} label='分类'>
-                                {
-                                    getFieldDecorator('category')(
-                                        <Input />
-                                    )
-                                }
-                            </FormItem> */}
                             <FormItem {...this.formItemLayout} label='状态'>
                                 {
                                     getFieldDecorator('status')(

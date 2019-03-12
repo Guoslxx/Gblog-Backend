@@ -25,7 +25,6 @@ export default class GTags extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        console.log('gtags', props)
         this.state = {
             dataSource: [],
             checkList: props.value instanceof Array ? props.value : [],
