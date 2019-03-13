@@ -4,7 +4,7 @@ import config from './config'
 
 const http = axios.create({
     baseURL: config.baseURL,
-    timeout: 2000,
+    timeout: 6000,
 })
 http.interceptors.request.use(
     config => {

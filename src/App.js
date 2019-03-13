@@ -6,7 +6,7 @@ import BaseLayout from '@layouts/BaseLayout';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Authorized } from './common/Authorized';
 import './common.less';
-import Login from './pages/Login';
+import Login from './pages/login';
 
 const App = () => (
   <Provider store={store}>

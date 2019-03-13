@@ -7,16 +7,20 @@ export default class Editor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            defaultValue: props.value
+            editorValue: props.value
         }
         this.quill = React.createRef();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.value !== nextProps.value){
-            //console.log('receive',this.props.value,'--------',nextProps.value,this.quill);
-            this.quill.current.setEditorContents(this.quill.current.editor, nextProps.value);
+    static getDerivedStateFromProps(nextProps, prevState) {
+        let state = null
+        if ('value' in nextProps && nextProps.value !== prevState.editorValue) {
+            console.log('getder',nextProps.value)
+            state = {
+                editorValue: nextProps.value
+            }
         }
+        return state;
     }
 
     modules = {
@@ -32,17 +36,12 @@ export default class Editor extends React.Component {
 
     handleChange(value) {
         const { onChange } = this.props;
-        const outputValue = {
-            html: value,
-            markdowns: value,
-            text: value,
-        }
-        console.log('change',value)
-        onChange && onChange(outputValue);
+        onChange && onChange(value);
     }
 
     render() {
-        console.log('editor props',this.props.value)
+        const { editorValue } = this.state;
+        console.log('editor props', editorValue)
         return (
             <div style={this.props.style || null} className={'g-editor'}>
                 <ReactQuill
@@ -50,7 +49,7 @@ export default class Editor extends React.Component {
                     onChange={e => { this.handleChange(e) }}
                     style={{ height: '100%' }}
                     modules={this.modules}
-                    value={this.props.value}
+                    value={editorValue}
                 // formats={this.formats}
                 />
             </div>
